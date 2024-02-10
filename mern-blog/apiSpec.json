@@ -1,0 +1,632 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "MERN Blog REST API",
+    "version": "1.0"
+  },
+  "servers": [{ "url": "https://localhost:3000/api/v1" }],
+  "paths": {
+    "/user": {
+      "get": {
+        "security": [
+          {
+            "UserAuth": []
+          }
+        ],
+        "tags": ["User API"],
+        "description": "Get Logged In User Info",
+        "summary": "Get Logged In User Info",
+        "responses": {
+          "200": {
+            "description": "Success Get User Info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/UserResObj"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["User API"],
+        "description": "Register New User",
+        "summary": "Register New User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserReqObj"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Register User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "UserAuth": []
+          }
+        ],
+        "tags": ["User API"],
+        "description": "Update User Info",
+        "summary": "Update User Info",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserReqObj"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Update User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "UserAuth": []
+          }
+        ],
+        "tags": ["User API"],
+        "description": "Delete User",
+        "summary": "Delete User",
+        "responses": {
+          "200": {
+            "description": "Success Delete User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": ["User API"],
+        "description": "User Auth Login",
+        "summary": "User Auth Login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User Login Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "tags": ["User API"],
+        "description": "User Logout",
+        "summary": "User Logout",
+        "responses": {
+          "200": {
+            "description": "User Logout Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upload": {
+      "post": {
+        "security": [
+          {
+            "UserAuth": []
+          }
+        ],
+        "tags": ["Upload API"],
+        "description": "Upload Image",
+        "summary": "Upload Image",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Upload Image",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "filename": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard": {
+      "get": {
+        "security": [
+          {
+            "UserAuth": []
+          }
+        ],
+        "tags": ["Dashboard API"],
+        "description": "List User's All Blog",
+        "summary": "List User's All Blog",
+        "responses": {
+          "200": {
+            "description": "Success Get User's Blog",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/BlogResObj"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blog": {
+      "get": {
+        "tags": ["Blog API"],
+        "description": "List All Blogs",
+        "summary": "List All Blogs",
+        "responses": {
+          "200": {
+            "description": "Success Get All Blogs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/BlogResObj"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "UserAuth": []
+          }
+        ],
+        "tags": ["Blog API"],
+        "description": "Create New Blog",
+        "summary": "Create New Blog",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlogReqObj"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create New Blog",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/BlogResObj"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blog/{blogId}": {
+      "get": {
+        "tags": ["Blog API"],
+        "description": "Get Blog by Id",
+        "summary": "Get Blog by Id",
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "description": "Blog Id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Get Blog",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/BlogResObj"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "UserAuth": []
+          }
+        ],
+        "tags": ["Blog API"],
+        "description": "Update Blog",
+        "summary": "Update Blog",
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "description": "Blog Id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlogReqObj"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Update Blog",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/BlogResObj"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "UserAuth": []
+          }
+        ],
+        "tags": ["Blog API"],
+        "description": "Delete Blog",
+        "summary": "Delete Blog",
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "description": "Blog Id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Delete Blog",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "UserAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "jwt",
+        "description": "Authentication for API"
+      }
+    },
+    "schemas": {
+      "UserReqObj": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          }
+        }
+      },
+      "UserResObj": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          }
+        }
+      },
+      "BlogReqObj": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "cover": {
+            "type": "string"
+          },
+          "authorId": {
+            "type": "integer"
+          }
+        }
+      },
+      "BlogResObj": {
+        "type": "object",
+        "properties": {
+          "blogId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "cover": {
+            "type": "string"
+          },
+          "authorId": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}
