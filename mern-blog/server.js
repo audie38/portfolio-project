@@ -6,7 +6,13 @@ const cors = require("cors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 
-app.use(cors());
+const sequelize = require("./config/db");
+const corsOptions = require("./config/corsOptions");
+const { logger, logEvents } = require("./middleware/logger");
+const errorHandler = require("./middleware/errorHandler");
+
+app.use(logger);
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -26,6 +32,17 @@ app.all("*", (req, res) => {
   res.json({ message: "404 Not Found" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.use(errorHandler);
+
+sequelize
+  .sync()
+  .then(() => {
+    console.log("Connected to DB...");
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+    logEvents(`${err}`, "dbErr.log");
+  });
