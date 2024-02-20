@@ -25,7 +25,12 @@ app.get("/api/v1", (req, res) => {
   res.sendFile(path.resolve(path.resolve(), "views", "apiDocs.html"));
 });
 
+app.use("/api/v1/user", require("./routes/userRoute"));
+app.use("/api/v1/dashboard", require("./routes/dashboardRoute"));
+app.use("/api/v1/blog", require("./routes/blogRoute"));
+app.use("/api/v1/asset", require("./routes/assetRoute"));
 app.use("/api/v1/asset/docs", express.static("public/docs"));
+app.use("/api/v1/asset/img", express.static("public/uploads"));
 
 app.all("*", (req, res) => {
   res.status(404);

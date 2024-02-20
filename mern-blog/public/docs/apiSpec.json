@@ -576,9 +576,6 @@
           "email": {
             "type": "string"
           },
-          "password": {
-            "type": "string"
-          },
           "photo": {
             "type": "string"
           }
@@ -599,7 +596,7 @@
           "cover": {
             "type": "string"
           },
-          "authorId": {
+          "userId": {
             "type": "integer"
           }
         }
@@ -622,7 +619,7 @@
           "cover": {
             "type": "string"
           },
-          "authorId": {
+          "userId": {
             "type": "integer"
           }
         }
