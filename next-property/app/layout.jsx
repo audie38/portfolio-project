@@ -6,7 +6,7 @@ export const metadata = {
   keywords: "rental, find rentals, find properties",
 };
 
-const layout = ({ children }) => {
+const MainLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
@@ -16,4 +16,4 @@ const layout = ({ children }) => {
   );
 };
 
-export default layout;
+export default MainLayout;
